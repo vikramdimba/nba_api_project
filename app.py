@@ -1,3 +1,24 @@
+import os
+import redis
+from urllib.parse import urlparse
+from flask import Flask, jsonify, request
+from nba_api.stats.endpoints import scoreboardv2
+from datetime import datetime
+import json
+
+app = Flask(__name__)
+
+# Get the Redis URL from the environment
+redis_url = os.getenv('REDIS_URL', 'redis://localhost:6379')
+
+# Parse the Redis URL
+url = urlparse(redis_url)
+
+# Create the Redis client
+redis_client = redis.Redis(host=url.hostname, port=url.port, password=url.password)
+
+# ... rest of your app.py code ...
+
 from flask import Flask, jsonify, request
 from nba_api.stats.endpoints import scoreboardv2
 from datetime import datetime
